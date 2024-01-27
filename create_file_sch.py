@@ -1,16 +1,22 @@
+import os
+import uuid
 import random
 from translate import Translator
 import datetime
 from datetime import timedelta
 import string
-import multiprocessing
-import cProfile
 import json
-import time 
-# import timeit 
 
+def files_dir(path):
+  for root, dirs, files in os.walk(path):
+    for dir in dirs:
+      for i in range(0,2):
+        uuid_val = uuid.uuid4()
+        file_name = f'file_{uuid_val}.json'
+        file_path = os.path.join(path,dir,file_name)
+        dataGen(file_path, num_dict=1)
 
-def dataGen():
+def dataGen(file_path,num_dict):
   
   translator= Translator(to_lang="Arabic")
 
@@ -20,9 +26,8 @@ def dataGen():
   another_startdate = datetime.date.today()
   another_enddate = another_startdate + timedelta(days=5)
 
-  dummy_data=[]
+  for dictionary in range(1,num_dict+1):
 
-  for i in range(1,101):
     dummy = {}
     dummy['Request'] = {}
     dummy['Request']['OperatingAirlines'] = "SaudiAirlines"
@@ -85,25 +90,9 @@ def dataGen():
     dummy['Request']['FlightIndex'] = None
 
     # dummy_data.append(dummy)
-    with open(f'file_{i}.json', mode='a', encoding='utf-8') as feedsjson:
+    with open(file_path, mode='a', encoding='utf-8') as feedsjson:
       feedsjson.write(json.dumps(dummy,indent=4))
-
-# if __name__ == "__main__":
-#   sd = time.time()
-#   p1 = multiprocessing.Process(target=dataGen)
-#   p2 = multiprocessing.Process(target=dataGen)  
-
-#   p1.start()
-#   p2.start()
-#   ed = time.time()
-#   print(f'start time = {sd}')
-#   print(f'end time = {ed}')
-#   print(ed - sd)
-dataGen()
-print("Finished")
-
-
-
-
-
-	
+    
+   
+path = r'C:\Soft Mania\Usecase 3\mkdir'
+files_dir(path)

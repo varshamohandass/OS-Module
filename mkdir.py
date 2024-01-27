@@ -95,16 +95,17 @@ def dataGen(file_path,num_dict):
     dummy['Request']['FlightIndex'] = None
 
     # dummy_data.append(dummy)
-    with open(file_path, mode='w', encoding='utf-8') as feedsjson:
+    with open(file_path, mode='a', encoding='utf-8') as feedsjson:
       feedsjson.write(json.dumps(dummy,indent=4))
+    
 
 
 if __name__ == "__main__":
-  base_dir = r'D:\Soft Mania\Usecase 3\mkdir'
+  base_dir = r'C:\Soft Mania\Usecase 3\mkdir'
 
-  num_folders_to_create = 5
-  num_files_in_a_folder = 2
-  num_dict = 3
+  num_folders_to_create = 40
+  num_files_in_a_folder = 10
+  num_dict = 1
 
   create_folders_and_files(base_dir,num_folders_to_create,num_files_in_a_folder,num_dict)
 
